@@ -1,2 +1,2 @@
 # ami-jenkins
-CI/CD Infrastructure using jenkins
+CI/CD Infrastructure using jenkinsas
