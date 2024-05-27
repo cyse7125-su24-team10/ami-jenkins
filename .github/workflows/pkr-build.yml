@@ -1,0 +1,45 @@
+name: Jenkins packer image build workflow
+
+on:
+    pull_request:
+        branches:
+            - main
+        types:
+            - closed
+
+jobs:
+    packer_build:
+        name: packer_ami
+        if: github.event.pull_request.merged == true
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v2
+
+            - name: Install Packer
+              run: |
+                  wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+                  echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+                  sudo apt update && sudo apt install packer
+
+            - name: Configure AWS Credentials Action for GitHub Actions
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  aws-region: us-east-1
+                  aws-access-key-id: ${{ secrets.ROOT_AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.ROOT_AWS_ACCESS_KEY }}
+
+            - name: Initialize Packer
+              run: |
+                  packer init ./packer/
+
+            - name: Packer Format check
+              run: |
+                  packer fmt ./packer/
+
+            - name: Build Packer Image
+              run: |
+                  packer build ./packer/
+
+
