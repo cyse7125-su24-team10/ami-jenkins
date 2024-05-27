@@ -33,6 +33,11 @@ variable "ssh_username" {
   default = "ubuntu"
 }
 
+variable "nginx_config" {
+  type    = string
+  default = "./nginx/jenkins.conf"
+}
+
 source "amazon-ebs" "ami-jenkins" {
   region          = "${var.region}"
   ami_name        = "jenkins-ami-${formatdate("YYYY-MM-DD-hh-mm-ss", timestamp())}"
@@ -45,7 +50,11 @@ source "amazon-ebs" "ami-jenkins" {
 
 build {
   sources = ["source.amazon-ebs.ami-jenkins"]
+  provisioner "file" {
+    source      = "${var.nginx_config}"
+    destination = "/tmp/jenkins.conf"
+  }
   provisioner "shell" {
-    script = "packer/jenkins-script.sh"
+    script = "packer/ami-script.sh"
   }
 }
