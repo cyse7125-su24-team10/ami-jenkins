@@ -38,6 +38,11 @@ variable "nginx_config" {
   default = "./nginx/jenkins.conf"
 }
 
+variable "source_jenkins_job" {
+  type    = string
+  default = "./jenkins/basic-setup.groovy"
+}
+
 source "amazon-ebs" "ami-jenkins" {
   region          = "${var.region}"
   ami_name        = "jenkins-ami-${formatdate("YYYY-MM-DD-hh-mm-ss", timestamp())}"
@@ -53,6 +58,10 @@ build {
   provisioner "file" {
     source      = "${var.nginx_config}"
     destination = "/tmp/jenkins.conf"
+  }
+  provisioner "file" {
+    source      = "${var.source_jenkins_job}"
+    destination = "/tmp/basic-setup.groovy"
   }
   provisioner "shell" {
     script = "packer/ami-script.sh"
