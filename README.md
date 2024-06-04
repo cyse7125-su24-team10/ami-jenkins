@@ -42,3 +42,9 @@ To build the AMI, follow these steps:
     ```sh
     packer build ./packer/
     ```
+
+### jenkins credentials setup
+1. Create Personal Access tokens on github
+2. add a global username password credentials id on jenkins manage credentials page
+3. add username github username and password the PAT and save it
+4. make sure the jenkins user is added to docker user group

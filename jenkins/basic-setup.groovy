@@ -1,14 +1,31 @@
-#!groovy
 import jenkins.model.*
 import hudson.security.*
 import jenkins.install.*
+import java.util.Properties
 
 // Get the Jenkins instance
 def instance = Jenkins.getInstance()
 
+// Load environment variables from the properties file
+def props = new Properties()
+def envFile = new File('/etc/jenkins.env')
+if (envFile.exists()) {
+    props.load(envFile.newDataInputStream())
+} else {
+    throw new RuntimeException("/etc/jenkins.env file not found")
+}
+
+def adminId = props.getProperty('ADMIN_ID')
+def adminPwd = props.getProperty('ADMIN_PWD')
+
+// Check if the environment variables are set
+if (adminId == null || adminPwd == null) {
+    throw new RuntimeException("Environment variables ADMIN_ID and/or ADMIN_PWD are not set")
+}
+
 // Set up Jenkins security realm and authorization strategy
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-hudsonRealm.createAccount('admin', 'admin')
+hudsonRealm.createAccount(adminId, adminPwd)
 instance.setSecurityRealm(hudsonRealm)
 
 def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
@@ -24,7 +41,7 @@ if (state != InstallState.RUNNING) {
 }
 
 // Install Plugins
-def plugins = ["git", "workflow-aggregator","pipeline-utility-steps","github","github-api"]
+def plugins = ["git", "workflow-aggregator","pipeline-utility-steps","github","github-api", "configuration-as-code"]
 def pm = instance.getPluginManager()
 def uc = instance.getUpdateCenter()
 
