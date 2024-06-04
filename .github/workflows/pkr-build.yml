@@ -40,6 +40,6 @@ jobs:
 
             - name: Build Packer Image
               run: |
-                  packer build ./packer/
+                packer build -var "admin_id=admin" -var "admin_pwd=admin" ./packer
 
 

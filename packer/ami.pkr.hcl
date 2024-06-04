@@ -20,7 +20,7 @@ variable "source_ami" {
 
 variable "instance_type" {
   type    = string
-  default = "t2.micro"
+  default = "t2.medium"
 }
 
 variable "ami_users" {
@@ -38,9 +38,29 @@ variable "nginx_config" {
   default = "./nginx/jenkins.conf"
 }
 
+variable "source_jenkins_plugins" {
+  type    = string
+  default = "./jenkins/plugins.txt"
+}
+
+variable "source_jenkins_casc" {
+  type    = string
+  default = "./jenkins/setup-casc.yaml"
+}
+
 variable "source_jenkins_job" {
   type    = string
   default = "./jenkins/basic-setup.groovy"
+}
+
+variable "admin_id" {
+  type    = string
+  default = ""
+}
+
+variable "admin_pwd" {
+  type    = string
+  default = ""
 }
 
 source "amazon-ebs" "ami-jenkins" {
@@ -60,8 +80,22 @@ build {
     destination = "/tmp/jenkins.conf"
   }
   provisioner "file" {
+    source      = "${var.source_jenkins_plugins}"
+    destination = "/tmp/plugins.txt"
+  }
+  provisioner "file" {
+    source      = "${var.source_jenkins_casc}"
+    destination = "/tmp/setup-casc.yaml"
+  }
+  provisioner "file" {
     source      = "${var.source_jenkins_job}"
     destination = "/tmp/basic-setup.groovy"
+  }
+  provisioner "shell" {
+    inline = [
+      "echo 'ADMIN_ID=${var.admin_id}' | sudo tee /etc/jenkins.env",
+      "echo 'ADMIN_PWD=${var.admin_pwd}' | sudo tee -a /etc/jenkins.env"
+    ]
   }
   provisioner "shell" {
     script = "packer/ami-script.sh"
