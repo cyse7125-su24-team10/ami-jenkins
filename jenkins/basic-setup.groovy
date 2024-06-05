@@ -41,7 +41,7 @@ if (state != InstallState.RUNNING) {
 }
 
 // Install Plugins
-def plugins = ["git", "workflow-aggregator","pipeline-utility-steps","github","github-api", "configuration-as-code"]
+def plugins = ["git", "workflow-aggregator","pipeline-utility-steps","github","github-api", "configuration-as-code", "job-dsl"]
 def pm = instance.getPluginManager()
 def uc = instance.getUpdateCenter()
 
@@ -51,6 +51,7 @@ plugins.each {
         plugin.deploy()
     }
 }
+
 
 // Create a "Hello World" job
 def jobName = "hello-world"
