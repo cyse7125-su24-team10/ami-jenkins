@@ -1,6 +1,0 @@
-git
-workflow-aggregator
-pipeline-utility-steps
-github
-github-api
-configuration-as-code

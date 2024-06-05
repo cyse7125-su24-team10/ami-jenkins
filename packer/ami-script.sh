@@ -39,10 +39,10 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 #sleep 30
 
 # Create initialization script for Jenkins
-sudo mkdir -p /var/jenkins_home/casc_configs
-sudo mv /tmp/setup-casc.yaml /var/jenkins_home/casc_configs/setup-casc.yaml
-sudo chown -R jenkins:jenkins /var/jenkins_home/casc_configs
-sudo chmod -R 755 /var/jenkins_home/casc_configs
+# sudo mkdir -p /var/jenkins_home/casc_configs
+# sudo mv /tmp/setup-casc.yaml /var/jenkins_home/casc_configs/setup-casc.yaml
+# sudo chown -R jenkins:jenkins /var/jenkins_home/casc_configs
+# sudo chmod -R 755 /var/jenkins_home/casc_configs
 sudo mkdir -p /var/lib/jenkins/init.groovy.d/
 sudo chown -R jenkins:jenkins /var/lib/jenkins/init.groovy.d/
 sudo mv /tmp/basic-setup.groovy /var/lib/jenkins/init.groovy.d/basic-setup.groovy
@@ -82,8 +82,6 @@ sudo systemctl start docker
 sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
 
-# multiplatform image builder
-sudo docker buildx create --use --name mybuilder
 
 
 

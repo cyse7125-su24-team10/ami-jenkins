@@ -38,16 +38,6 @@ variable "nginx_config" {
   default = "./nginx/jenkins.conf"
 }
 
-variable "source_jenkins_plugins" {
-  type    = string
-  default = "./jenkins/plugins.txt"
-}
-
-variable "source_jenkins_casc" {
-  type    = string
-  default = "./jenkins/setup-casc.yaml"
-}
-
 variable "source_jenkins_job" {
   type    = string
   default = "./jenkins/basic-setup.groovy"
@@ -128,14 +118,6 @@ build {
   provisioner "file" {
     source      = "${var.nginx_config}"
     destination = "/tmp/jenkins.conf"
-  }
-  provisioner "file" {
-    source      = "${var.source_jenkins_plugins}"
-    destination = "/tmp/plugins.txt"
-  }
-  provisioner "file" {
-    source      = "${var.source_jenkins_casc}"
-    destination = "/tmp/setup-casc.yaml"
   }
   provisioner "file" {
     source      = "${var.source_jenkins_job}"
