@@ -53,12 +53,62 @@ variable "source_jenkins_job" {
   default = "./jenkins/basic-setup.groovy"
 }
 
+variable "source_git_job" {
+  type    = string
+  default = "./jenkins/git-credentials.groovy"
+}
+
+variable "source_docker_job" {
+  type    = string
+  default = "./jenkins/docker-credentials.groovy"
+}
+
+variable "source_webhook" {
+  type    = string
+  default = "./jenkins/webhook.groovy"
+}
+
 variable "admin_id" {
   type    = string
   default = ""
 }
 
 variable "admin_pwd" {
+  type    = string
+  default = ""
+}
+
+variable "GITHUB_USERNAME" {
+  type    = string
+  default = ""
+}
+
+variable "GITHUB_PAT" {
+  type    = string
+  default = ""
+}
+
+variable "GITHUB_PAT_ID" {
+  type    = string
+  default = ""
+}
+
+variable "GITHUB_PAT_DESC" {
+  type    = string
+  default = ""
+}
+
+variable "DOCKER_PAT" {
+  type    = string
+  default = ""
+}
+
+variable "DOCKER_PAT_ID" {
+  type    = string
+  default = ""
+}
+
+variable "DOCKER_PAT_DESC" {
   type    = string
   default = ""
 }
@@ -91,10 +141,29 @@ build {
     source      = "${var.source_jenkins_job}"
     destination = "/tmp/basic-setup.groovy"
   }
+  provisioner "file" {
+    source      = "${var.source_git_job}"
+    destination = "/tmp/git-credentials.groovy"
+  }
+  provisioner "file" {
+    source      = "${var.source_docker_job}"
+    destination = "/tmp/docker-credentials.groovy"
+  }
+  provisioner "file" {
+    source      = "${var.source_webhook}"
+    destination = "/tmp/webhook.groovy"
+  }
   provisioner "shell" {
     inline = [
       "echo 'ADMIN_ID=${var.admin_id}' | sudo tee /etc/jenkins.env",
-      "echo 'ADMIN_PWD=${var.admin_pwd}' | sudo tee -a /etc/jenkins.env"
+      "echo 'ADMIN_PWD=${var.admin_pwd}' | sudo tee -a /etc/jenkins.env",
+      "echo 'GITHUB_USERNAME=${var.GITHUB_USERNAME}' | sudo tee -a /etc/jenkins.env",
+      "echo 'GITHUB_PAT=${var.GITHUB_PAT}' | sudo tee -a /etc/jenkins.env",
+      "echo 'GITHUB_PAT_ID=${var.GITHUB_PAT_ID}' | sudo tee -a /etc/jenkins.env",
+      "echo 'GITHUB_PAT_DESC=${var.GITHUB_PAT_DESC}' | sudo tee -a /etc/jenkins.env",
+      "echo 'DOCKER_PAT=${var.DOCKER_PAT}' | sudo tee -a /etc/jenkins.env",
+      "echo 'DOCKER_PAT_ID=${var.DOCKER_PAT_ID}' | sudo tee -a /etc/jenkins.env",
+      "echo 'DOCKER_PAT_DESC=${var.DOCKER_PAT_DESC}' | sudo tee -a /etc/jenkins.env"
     ]
   }
   provisioner "shell" {

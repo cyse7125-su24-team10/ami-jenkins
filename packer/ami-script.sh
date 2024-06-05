@@ -46,6 +46,10 @@ sudo chmod -R 755 /var/jenkins_home/casc_configs
 sudo mkdir -p /var/lib/jenkins/init.groovy.d/
 sudo chown -R jenkins:jenkins /var/lib/jenkins/init.groovy.d/
 sudo mv /tmp/basic-setup.groovy /var/lib/jenkins/init.groovy.d/basic-setup.groovy
+sudo mv /tmp/git-credentials.groovy /var/lib/jenkins/init.groovy.d/git-credentials.groovy
+sudo mv /tmp/docker-credentials.groovy /var/lib/jenkins/init.groovy.d/docker-credentials.groovy
+sudo mv /tmp/webhook.groovy /var/lib/jenkins/init.groovy.d/webhook.groovy
+
 sudo systemctl restart jenkins
 # Wait for script execution to finish
 #sleep 30

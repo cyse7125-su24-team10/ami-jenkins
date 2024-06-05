@@ -40,6 +40,7 @@ jobs:
 
             - name: Build Packer Image
               run: |
-                packer build -var "admin_id=admin" -var "admin_pwd=admin" ./packer
+                packer build -var "admin_id=admin" -var "admin_pwd=admin" -var "GITHUB_USERNAME=gituser" -var "GITHUB_PAT=gitpat" -var "GITHUB_PAT_ID=gitpatid" -var "GITHUB_PAT_DESC=githubcreds" -var "DOCKER_PAT=dockerpat" -var "DOCKER_PAT_ID=dockerpatid" -var "DOCKER_PAT_DESC=dockerpatdesc" ./packer/
+
 
 
