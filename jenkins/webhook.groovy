@@ -32,7 +32,7 @@ if (job == null) {
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://github.com/vk-NEU7/githubhook.git</url>
+          <url>https://github.com/cyse7125-su24-team10/static-site.git</url>
           <credentialsId>github-pat</credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
