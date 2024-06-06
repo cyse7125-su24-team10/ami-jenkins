@@ -1,5 +1,5 @@
 jenkins:
-  systemMessage: "Automating Jenkins Setup using Docker and Jenkins Configuration as Code"
+  systemMessage: "Jenkins Job Setup"
 
 unclassified:
   location:

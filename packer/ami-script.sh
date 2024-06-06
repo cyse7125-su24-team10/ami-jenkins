@@ -35,8 +35,6 @@ sudo systemctl status nginx
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
-# Wait for Jenkins to start and initialize
-#sleep 30
 
 # Create initialization script for Jenkins
 sudo mkdir -p /var/lib/jenkins/init.groovy.d/
@@ -49,15 +47,11 @@ sudo mv /tmp/webhook.groovy /usr/local/webhook.groovy
 echo 'CASC_JENKINS_CONFIG="/var/lib/jenkins/casc.yaml"' | sudo tee -a /etc/environment
 sudo sed -i 's/\(JAVA_OPTS=-Djava\.awt\.headless=true\)/\1 -Djenkins.install.runSetupWizard=false/' /lib/systemd/system/jenkins.service
 sudo sed -i '/Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"/a Environment="CASC_JENKINS_CONFIG=/var/lib/jenkins/casc.yaml"' /lib/systemd/system/jenkins.service
-sudo systemctl daemon-reload
-sudo systemctl restart jenkins
-# Wait for script execution to finish
-#sleep 30
 
 # Restart Jenkins to apply changes
-#sudo systemctl restart jenkins
-sudo systemctl status jenkins
-#sudo journalctl -u jenkins --no-pager | tail -n 50
+sudo systemctl daemon-reload
+sudo systemctl restart jenkins
+sudo journalctl -u jenkins --no-pager | tail -n 50
 
 
 # Install docker

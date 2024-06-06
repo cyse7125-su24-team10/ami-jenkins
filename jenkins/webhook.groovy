@@ -1,6 +1,6 @@
 pipelineJob('webhook') {
     displayName('webhook')
-    description('Creates multiplatform docker image')
+    description('Job to poll on git scm')
     definition {
         cpsScm {
             scm {
