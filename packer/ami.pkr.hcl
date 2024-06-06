@@ -58,6 +58,11 @@ variable "source_webhook" {
   default = "./jenkins/webhook.groovy"
 }
 
+variable "source_casc" {
+  type    = string
+  default = "./jenkins/casc.yaml"
+}
+
 variable "admin_id" {
   type    = string
   default = ""
@@ -134,6 +139,10 @@ build {
   provisioner "file" {
     source      = "${var.source_webhook}"
     destination = "/tmp/webhook.groovy"
+  }
+  provisioner "file" {
+    source      = "${var.source_casc}"
+    destination = "/tmp/casc.yaml"
   }
   provisioner "shell" {
     inline = [
