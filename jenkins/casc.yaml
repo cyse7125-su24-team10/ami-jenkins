@@ -3,7 +3,7 @@ jenkins:
 
 unclassified:
   location:
-    url: "http://127.0.0.1:8080/"
+    url: "https://jenkins.skynetx.me"
 
 jobs:
   - file: "/usr/local/webhook.groovy"
