@@ -51,31 +51,4 @@ plugins.each {
         plugin.deploy()
     }
 }
-
-
-// Create a "Hello World" job
-def jobName = "hello-world"
-def job = instance.getItem(jobName)
-if (job == null) {
-    def jobConfig = """
-<flow-definition plugin="workflow-job">
-  <actions/>
-  <description>A simple hello world job.</description>
-  <keepDependencies>false</keepDependencies>
-  <properties/>
-  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps">
-    <script>echo 'Hello, World!'</script>
-    <sandbox>true</sandbox>
-  </definition>
-  <triggers/>
-  <disabled>false</disabled>
-</flow-definition>
-"""
-    def xmlStream = new ByteArrayInputStream(jobConfig.getBytes("UTF-8"))
-    def jobDefinition = jenkins.model.Jenkins.getInstance().createProjectFromXML(jobName, xmlStream)
-    println "Created job '${jobName}'"
-} else {
-    println "Job '${jobName}' already exists"
-}
-
 instance.save()

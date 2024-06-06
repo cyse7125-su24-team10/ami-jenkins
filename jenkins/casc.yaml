@@ -1,0 +1,9 @@
+jenkins:
+  systemMessage: "Automating Jenkins Setup using Docker and Jenkins Configuration as Code"
+
+unclassified:
+  location:
+    url: "http://127.0.0.1:8080/"
+
+jobs:
+  - file: "/usr/local/webhook.groovy"

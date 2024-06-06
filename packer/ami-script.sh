@@ -39,17 +39,17 @@ sudo ln -s /snap/bin/certbot /usr/bin/certbot
 #sleep 30
 
 # Create initialization script for Jenkins
-# sudo mkdir -p /var/jenkins_home/casc_configs
-# sudo mv /tmp/setup-casc.yaml /var/jenkins_home/casc_configs/setup-casc.yaml
-# sudo chown -R jenkins:jenkins /var/jenkins_home/casc_configs
-# sudo chmod -R 755 /var/jenkins_home/casc_configs
 sudo mkdir -p /var/lib/jenkins/init.groovy.d/
 sudo chown -R jenkins:jenkins /var/lib/jenkins/init.groovy.d/
 sudo mv /tmp/basic-setup.groovy /var/lib/jenkins/init.groovy.d/basic-setup.groovy
 sudo mv /tmp/git-credentials.groovy /var/lib/jenkins/init.groovy.d/git-credentials.groovy
 sudo mv /tmp/docker-credentials.groovy /var/lib/jenkins/init.groovy.d/docker-credentials.groovy
-sudo mv /tmp/webhook.groovy /var/lib/jenkins/init.groovy.d/webhook.groovy
-
+sudo mv /tmp/casc.yaml /var/lib/jenkins/casc.yaml
+sudo mv /tmp/webhook.groovy /usr/local/webhook.groovy
+echo 'CASC_JENKINS_CONFIG="/var/lib/jenkins/casc.yaml"' | sudo tee -a /etc/environment
+sudo sed -i 's/\(JAVA_OPTS=-Djava\.awt\.headless=true\)/\1 -Djenkins.install.runSetupWizard=false/' /lib/systemd/system/jenkins.service
+sudo sed -i '/Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"/a Environment="CASC_JENKINS_CONFIG=/var/lib/jenkins/casc.yaml"' /lib/systemd/system/jenkins.service
+sudo systemctl daemon-reload
 sudo systemctl restart jenkins
 # Wait for script execution to finish
 #sleep 30
@@ -81,8 +81,4 @@ sudo systemctl start docker
 # add jenkins to docker users
 sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
-
-
-
-
 
