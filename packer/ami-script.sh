@@ -31,6 +31,18 @@ sudo systemctl daemon-reload
 sudo systemctl restart nginx
 sudo systemctl status nginx
 
+# Install helm
+sudo apt-get install -y wget \
+    && wget https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz \
+    && tar -zxvf helm-v3.7.0-linux-amd64.tar.gz
+sudo mv linux-amd64/helm /usr/local/bin/helm
+
+# Install nodejs
+curl -fsSL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh
+sudo -E bash nodesource_setup.sh
+sudo apt-get install -y nodejs
+sudo npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/github @semantic-release/git
+
 # Install Let's Encrypt certbot
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
@@ -44,6 +56,8 @@ sudo mv /tmp/git-credentials.groovy /var/lib/jenkins/init.groovy.d/git-credentia
 sudo mv /tmp/docker-credentials.groovy /var/lib/jenkins/init.groovy.d/docker-credentials.groovy
 sudo mv /tmp/casc.yaml /var/lib/jenkins/casc.yaml
 sudo mv /tmp/webhook.groovy /usr/local/webhook.groovy
+sudo mv /tmp/helm-cve-status-check.groovy /usr/local/helm-cve-status-check.groovy
+sudo mv /tmp/helm-cve-release.groovy /usr/local/helm-cve-release.groovy
 echo 'CASC_JENKINS_CONFIG="/var/lib/jenkins/casc.yaml"' | sudo tee -a /etc/environment
 sudo sed -i 's/\(JAVA_OPTS=-Djava\.awt\.headless=true\)/\1 -Djenkins.install.runSetupWizard=false/' /lib/systemd/system/jenkins.service
 sudo sed -i '/Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"/a Environment="CASC_JENKINS_CONFIG=/var/lib/jenkins/casc.yaml"' /lib/systemd/system/jenkins.service
@@ -75,4 +89,3 @@ sudo systemctl start docker
 # add jenkins to docker users
 sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
-

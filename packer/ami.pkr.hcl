@@ -108,6 +108,16 @@ variable "DOCKER_PAT_DESC" {
   default = ""
 }
 
+variable "source_helm_cve_status_check" {
+  type    = string
+  default = "./jenkins/helm-cve-status-check.groovy"
+}
+
+variable "source_helm_cve_release" {
+  type    = string
+  default = "./jenkins/helm-cve-release.groovy"
+}
+
 source "amazon-ebs" "ami-jenkins" {
   region          = "${var.region}"
   ami_name        = "jenkins-ami-${formatdate("YYYY-MM-DD-hh-mm-ss", timestamp())}"
@@ -143,6 +153,14 @@ build {
   provisioner "file" {
     source      = "${var.source_casc}"
     destination = "/tmp/casc.yaml"
+  }
+  provisioner "file" {
+    source      = "${var.source_helm_cve_status_check}"
+    destination = "/tmp/helm-cve-status-check.groovy"
+  }
+  provisioner "file" {
+    source      = "${var.source_helm_cve_release}"
+    destination = "/tmp/helm-cve-release.groovy"
   }
   provisioner "shell" {
     inline = [

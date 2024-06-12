@@ -7,3 +7,5 @@ unclassified:
 
 jobs:
   - file: "/usr/local/webhook.groovy"
+  - file: "/usr/local/helm-cve-status-check.groovy"
+  - file: "/usr/local/helm-cve-release.groovy"
