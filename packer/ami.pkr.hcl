@@ -58,6 +58,26 @@ variable "source_webhook" {
   default = "./jenkins/webhook.groovy"
 }
 
+variable "commit_lint_cve" {
+  type    = string
+  default = "./jenkins/commit-lint-cve-processor.groovy"
+}
+
+variable "commit_lint_cve_helm" {
+  type    = string
+  default = "./jenkins/commit-lint-helm-cve.groovy"
+}
+
+variable "cve_processor_dbmigrate" {
+  type    = string
+  default = "./jenkins/cve-processor-dbmigrate.groovy"
+}
+
+variable "cve_processor_docker" {
+  type    = string
+  default = "./jenkins/cve-processor-docker.groovy"
+}
+
 variable "source_casc" {
   type    = string
   default = "./jenkins/casc.yaml"
@@ -162,6 +182,26 @@ build {
     source      = "${var.source_helm_cve_release}"
     destination = "/tmp/helm-cve-release.groovy"
   }
+  provisioner "file" {
+    source = "${var.commit_lint_cve}"
+    destination = "/tmp/commit-lint-cve-processor.groovy"
+  }
+
+  provisioner "file" {
+    source = "${var.commit_lint_cve_helm}"
+    destination = "/tmp/commit-lint-helm-cve.groovy"
+  }
+
+  provisioner "file" {
+    source = "${var.cve_processor_dbmigrate}"
+    destination = "/tmp/cve-processor-dbmigrate.groovy"
+  }
+
+  provisioner "file" {
+    source = "${var.cve_processor_docker}"
+    destination = "/tmp/cve-processor-docker.groovy"
+  }
+  
   provisioner "shell" {
     inline = [
       "echo 'ADMIN_ID=${var.admin_id}' | sudo tee /etc/jenkins.env",
