@@ -137,6 +137,11 @@ variable "source_helm_cve_release" {
   type    = string
   default = "./jenkins/helm-cve-release.groovy"
 }
+variable "commit_lint_dbmigrate" {
+  type    = string
+  default = "./jenkins/commit-lint-dbmigrate.groovy"
+}
+
 
 source "amazon-ebs" "ami-jenkins" {
   region          = "${var.region}"
@@ -200,6 +205,11 @@ build {
   provisioner "file" {
     source      = "${var.cve_processor_docker}"
     destination = "/tmp/cve-processor-docker.groovy"
+  }
+
+  provisioner "file" {
+    source      = "${var.commit_lint_dbmigrate}"
+    destination = "/tmp/commit-lint-dbmigrate.groovy"
   }
 
   provisioner "shell" {
