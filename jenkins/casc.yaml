@@ -13,3 +13,4 @@ jobs:
   - file: "/usr/local/cve-processor-dbmigrate.groovy"
   - file: "/usr/local/commit-lint-helm-cve.groovy"
   - file: "/usr/local/commit-lint-cve-processor.groovy"
+  - file: "/usr/local/commit-lint-dbmigrate.groovy" 
