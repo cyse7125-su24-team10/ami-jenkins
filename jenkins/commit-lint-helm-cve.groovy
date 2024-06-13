@@ -1,7 +1,7 @@
-multibranchPipelineJob('helm-cve-status-check') {
+multibranchPipelineJob('commit-lint-helm-cve') {
     branchSources {
         github {
-            id('98022339084')
+            id('9802390343484')
             repoOwner('cyse7125-su24-team10')
             repository('helm-webapp-cve-processor')
             buildForkPRHead(true)
@@ -15,12 +15,13 @@ multibranchPipelineJob('helm-cve-status-check') {
     configure { node ->
         def webhookTrigger = node / triggers / 'com.igalg.jenkins.plugins.mswt.trigger.ComputedFolderWebHookTrigger' {
             spec('')
-            token("helm-webapp-status-check")
+            token("helm-webapp-cve-processor-commitlint")
         }
     }
+
     factory {
         workflowBranchProjectFactory {
-            scriptPath('Jenkinsfile')
+            scriptPath('Jenkinsfile.commitlint')
         }
     }
 }

@@ -9,3 +9,7 @@ jobs:
   - file: "/usr/local/webhook.groovy"
   - file: "/usr/local/helm-cve-status-check.groovy"
   - file: "/usr/local/helm-cve-release.groovy"
+  - file: "/usr/local/cve-processor-docker.groovy"
+  - file: "/usr/local/cve-processor-dbmigrate.groovy"
+  - file: "/usr/local/commit-lint-helm-cve.groovy"
+  - file: "/usr/local/commit-lint-cve-processor.groovy"
