@@ -183,25 +183,25 @@ build {
     destination = "/tmp/helm-cve-release.groovy"
   }
   provisioner "file" {
-    source = "${var.commit_lint_cve}"
+    source      = "${var.commit_lint_cve}"
     destination = "/tmp/commit-lint-cve-processor.groovy"
   }
 
   provisioner "file" {
-    source = "${var.commit_lint_cve_helm}"
+    source      = "${var.commit_lint_cve_helm}"
     destination = "/tmp/commit-lint-helm-cve.groovy"
   }
 
   provisioner "file" {
-    source = "${var.cve_processor_dbmigrate}"
+    source      = "${var.cve_processor_dbmigrate}"
     destination = "/tmp/cve-processor-dbmigrate.groovy"
   }
 
   provisioner "file" {
-    source = "${var.cve_processor_docker}"
+    source      = "${var.cve_processor_docker}"
     destination = "/tmp/cve-processor-docker.groovy"
   }
-  
+
   provisioner "shell" {
     inline = [
       "echo 'ADMIN_ID=${var.admin_id}' | sudo tee /etc/jenkins.env",
