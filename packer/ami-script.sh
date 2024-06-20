@@ -46,6 +46,11 @@ sudo apt-get install -y nodejs
 sudo npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/github @semantic-release/git
 sudo npm install semantic-release-helm
 
+# Install Terraform
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform
+
 # Install Let's Encrypt certbot
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
@@ -66,6 +71,7 @@ sudo mv /tmp/commit-lint-helm-cve.groovy /usr/local/commit-lint-helm-cve.groovy
 sudo mv /tmp/cve-processor-dbmigrate.groovy /usr/local/cve-processor-dbmigrate.groovy
 sudo mv /tmp/cve-processor-docker.groovy /usr/local/cve-processor-docker.groovy
 sudo mv /tmp/commit-lint-dbmigrate.groovy /usr/local/commit-lint-dbmigrate.groovy
+sudo mv /tmp/infra-aws-status-check.groovy /usr/local/infra-aws-status-check.groovy
 echo 'CASC_JENKINS_CONFIG="/var/lib/jenkins/casc.yaml"' | sudo tee -a /etc/environment
 sudo sed -i 's/\(JAVA_OPTS=-Djava\.awt\.headless=true\)/\1 -Djenkins.install.runSetupWizard=false/' /lib/systemd/system/jenkins.service
 sudo sed -i '/Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"/a Environment="CASC_JENKINS_CONFIG=/var/lib/jenkins/casc.yaml"' /lib/systemd/system/jenkins.service
