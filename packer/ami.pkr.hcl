@@ -142,6 +142,11 @@ variable "commit_lint_dbmigrate" {
   default = "./jenkins/commit-lint-dbmigrate.groovy"
 }
 
+variable "source_infra_aws_status_check" {
+  type    = string
+  default = "./jenkins/infra-aws-status-check.groovy"
+}
+
 
 source "amazon-ebs" "ami-jenkins" {
   region          = "${var.region}"
@@ -210,6 +215,11 @@ build {
   provisioner "file" {
     source      = "${var.commit_lint_dbmigrate}"
     destination = "/tmp/commit-lint-dbmigrate.groovy"
+  }
+
+  provisioner "file" {
+    source      = "${var.source_infra_aws_status_check}"
+    destination = "/tmp/infra-aws-status-check.groovy"
   }
 
   provisioner "shell" {
