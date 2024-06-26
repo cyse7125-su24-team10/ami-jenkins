@@ -13,5 +13,6 @@ crash.log
 #
 *.pkrvars.hcl
 
+ami-jenkins.iml
 # For built boxes
 *.box

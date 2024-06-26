@@ -72,6 +72,8 @@ sudo mv /tmp/cve-processor-dbmigrate.groovy /usr/local/cve-processor-dbmigrate.g
 sudo mv /tmp/cve-processor-docker.groovy /usr/local/cve-processor-docker.groovy
 sudo mv /tmp/commit-lint-dbmigrate.groovy /usr/local/commit-lint-dbmigrate.groovy
 sudo mv /tmp/infra-aws-status-check.groovy /usr/local/infra-aws-status-check.groovy
+sudo mv /tmp/cve-consumer-docker.groovy /usr/local/cve-consumer-docker.groovy
+sudo mv /tmp/helm-cve-consumer-release.groovy /usr/local/helm-cve-consumer-release.groovy
 echo 'CASC_JENKINS_CONFIG="/var/lib/jenkins/casc.yaml"' | sudo tee -a /etc/environment
 sudo sed -i 's/\(JAVA_OPTS=-Djava\.awt\.headless=true\)/\1 -Djenkins.install.runSetupWizard=false/' /lib/systemd/system/jenkins.service
 sudo sed -i '/Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"/a Environment="CASC_JENKINS_CONFIG=/var/lib/jenkins/casc.yaml"' /lib/systemd/system/jenkins.service
