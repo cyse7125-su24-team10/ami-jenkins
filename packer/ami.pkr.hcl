@@ -78,6 +78,16 @@ variable "cve_processor_docker" {
   default = "./jenkins/cve-processor-docker.groovy"
 }
 
+variable "cve_consumer_docker" {
+  type    = string
+  default = "./jenkins/cve-consumer-docker.groovy"
+}
+
+variable "helm_cve_consumer" {
+  type    = string
+  default = "./jenkins/helm-cve-consumer-release.groovy"
+}
+
 variable "source_casc" {
   type    = string
   default = "./jenkins/casc.yaml"
@@ -210,6 +220,16 @@ build {
   provisioner "file" {
     source      = "${var.cve_processor_docker}"
     destination = "/tmp/cve-processor-docker.groovy"
+  }
+
+  provisioner "file" {
+    source      = "${var.cve_consumer_docker}"
+    destination = "/tmp/cve-consumer-docker.groovy"
+  }
+
+  provisioner "file" {
+    source      = "${var.helm_cve_consumer}"
+    destination = "/tmp/helm-cve-consumer-release.groovy"
   }
 
   provisioner "file" {

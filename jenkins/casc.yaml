@@ -15,3 +15,5 @@ jobs:
   - file: "/usr/local/commit-lint-cve-processor.groovy"
   - file: "/usr/local/commit-lint-dbmigrate.groovy"
   - file: "/usr/local/infra-aws-status-check.groovy"
+  - file: "/usr/local/cve-consumer-docker.groovy"
+  - file: "/usr/local/helm-cve-consumer-release.groovy"
