@@ -88,6 +88,15 @@ variable "helm_cve_consumer" {
   default = "./jenkins/helm-cve-consumer-release.groovy"
 }
 
+variable "commit_lint_cve_helm_consumer" {
+  type    = string
+  default = "./jenkins/commit-lint-helm-consumer.groovy"
+}
+
+variable "commit_lint_cve_consumer" {
+  type    = string
+  default = "./jenkins/commit-lint-cve-consumer.groovy"
+}
 variable "source_casc" {
   type    = string
   default = "./jenkins/casc.yaml"
@@ -240,6 +249,17 @@ build {
   provisioner "file" {
     source      = "${var.source_infra_aws_status_check}"
     destination = "/tmp/infra-aws-status-check.groovy"
+  }
+
+  provisioner "file" {
+    source = "${var.commit_lint_cve_helm_consumer}"
+    destination = "/tmp/commit-lint-helm-consumer.groovy"
+  }
+
+  provisioner "file" {
+    source = "${var.commit_lint_cve_consumer}"
+    destination = "/tmp/commit-lint-cve-consumer.groovy"
+  
   }
 
   provisioner "shell" {
