@@ -252,14 +252,14 @@ build {
   }
 
   provisioner "file" {
-    source = "${var.commit_lint_cve_helm_consumer}"
+    source      = "${var.commit_lint_cve_helm_consumer}"
     destination = "/tmp/commit-lint-helm-consumer.groovy"
   }
 
   provisioner "file" {
-    source = "${var.commit_lint_cve_consumer}"
+    source      = "${var.commit_lint_cve_consumer}"
     destination = "/tmp/commit-lint-cve-consumer.groovy"
-  
+
   }
 
   provisioner "shell" {
