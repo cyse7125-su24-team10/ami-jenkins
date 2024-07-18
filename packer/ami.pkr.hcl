@@ -97,6 +97,12 @@ variable "commit_lint_cve_consumer" {
   type    = string
   default = "./jenkins/commit-lint-cve-consumer.groovy"
 }
+
+variable "autoscaler_release" {
+  type    = string
+  default = "./jenkins/autoscaler-release.groovy"
+}
+
 variable "source_casc" {
   type    = string
   default = "./jenkins/casc.yaml"
@@ -260,6 +266,10 @@ build {
     source      = "${var.commit_lint_cve_consumer}"
     destination = "/tmp/commit-lint-cve-consumer.groovy"
 
+  }
+  provisioner "file" {
+    source      = "${var.autoscaler_release}"
+    destination = "/tmp/autoscaler-release.groovy"
   }
 
   provisioner "shell" {
