@@ -77,6 +77,7 @@ sudo mv /tmp/helm-cve-consumer-release.groovy /usr/local/helm-cve-consumer-relea
 sudo mv /tmp/commit-lint-cve-consumer.groovy /usr/local/commit-lint-cve-consumer.groovy
 sudo mv /tmp/commit-lint-helm-consumer.groovy /usr/local/commit-lint-helm-consumer.groovy
 sudo mv /tmp/autoscaler-release.groovy /usr/local/autoscaler-release.groovy
+sudo mv /tmp/autoscaler-commit-lint.groovy /usr/local/autoscaler-commit-lint.groovy
 echo 'CASC_JENKINS_CONFIG="/var/lib/jenkins/casc.yaml"' | sudo tee -a /etc/environment
 sudo sed -i 's/\(JAVA_OPTS=-Djava\.awt\.headless=true\)/\1 -Djenkins.install.runSetupWizard=false/' /lib/systemd/system/jenkins.service
 sudo sed -i '/Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"/a Environment="CASC_JENKINS_CONFIG=/var/lib/jenkins/casc.yaml"' /lib/systemd/system/jenkins.service
