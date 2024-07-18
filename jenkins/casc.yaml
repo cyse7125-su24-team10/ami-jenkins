@@ -19,3 +19,4 @@ jobs:
   - file: "/usr/local/helm-cve-consumer-release.groovy"
   - file: "/usr/local/commit-lint-cve-consumer.groovy"
   - file: "/usr/local/commit-lint-helm-consumer.groovy"
+  - file: "/usr/local/autoscaler-release.groovy"
