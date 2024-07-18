@@ -172,6 +172,11 @@ variable "source_infra_aws_status_check" {
   default = "./jenkins/infra-aws-status-check.groovy"
 }
 
+variable "autoscaler_commitlint" {
+  type    = string
+  default = "./jenkins/autoscaler-commit-lint.groovy"
+}
+
 
 source "amazon-ebs" "ami-jenkins" {
   region          = "${var.region}"
@@ -270,6 +275,11 @@ build {
   provisioner "file" {
     source      = "${var.autoscaler_release}"
     destination = "/tmp/autoscaler-release.groovy"
+  }
+
+  provisioner "file" {
+    source      = "${var.autoscaler_commitlint}"
+    destination = "/tmp/autoscaler-commit-lint.groovy"
   }
 
   provisioner "shell" {
