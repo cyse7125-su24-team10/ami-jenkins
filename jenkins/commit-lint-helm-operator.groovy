@@ -3,7 +3,7 @@ multibranchPipelineJob('commit-lint-helm-cve-operator') {
         github {
             id('9802838388984')
             repoOwner('cyse7125-su24-team10')
-            repository('helm-cve-operator')
+            repository('helm-k8s-operator')
             buildForkPRHead(true)
             buildForkPRMerge(false)
             buildOriginBranchWithPR(false)
