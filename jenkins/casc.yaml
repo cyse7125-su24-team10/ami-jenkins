@@ -21,3 +21,4 @@ jobs:
   - file: "/usr/local/commit-lint-helm-consumer.groovy"
   - file: "/usr/local/autoscaler-release.groovy"
   - file: "/usr/local/autoscaler-commit-lint.groovy"
+  - file: "/usr/local/cve-operator-docker.groovy"

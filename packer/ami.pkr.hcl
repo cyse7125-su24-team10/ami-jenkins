@@ -177,6 +177,11 @@ variable "autoscaler_commitlint" {
   default = "./jenkins/autoscaler-commit-lint.groovy"
 }
 
+variable "cve_operator_docker" {
+  type    = string
+  default = "./jenkins/cve-operator-docker.groovy"
+}
+
 
 source "amazon-ebs" "ami-jenkins" {
   region          = "${var.region}"
@@ -280,6 +285,11 @@ build {
   provisioner "file" {
     source      = "${var.autoscaler_commitlint}"
     destination = "/tmp/autoscaler-commit-lint.groovy"
+  }
+
+  provisioner "file" {
+    source      = "${var.cve_operator_docker}"
+    destination = "/tmp/cve-operator-docker.groovy"
   }
 
   provisioner "shell" {
