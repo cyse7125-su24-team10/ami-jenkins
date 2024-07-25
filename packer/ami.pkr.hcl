@@ -182,6 +182,17 @@ variable "cve_operator_docker" {
   default = "./jenkins/cve-operator-docker.groovy"
 }
 
+variable "commit_lint_cve_operator" {
+  type    = string
+  default = "./jenkins/commit-lint-helm-operator.groovy"
+}
+
+variable "source_helm_cve_operator_release" {
+  type    = string
+  default = "./jenkins/helm-cve-operator-release.groovy"
+}
+
+
 
 source "amazon-ebs" "ami-jenkins" {
   region          = "${var.region}"
@@ -290,6 +301,16 @@ build {
   provisioner "file" {
     source      = "${var.cve_operator_docker}"
     destination = "/tmp/cve-operator-docker.groovy"
+  }
+
+  provisioner "file" {
+    source      = "${var.commit_lint_cve_operator}"
+    destination = "/tmp/commit-lint-helm-operator.groovy"
+  }
+
+  provisioner "file" {
+    source      = "${var.source_helm_cve_operator_release}"
+    destination = "/tmp/helm-cve-operator-release.groovy"
   }
 
   provisioner "shell" {
