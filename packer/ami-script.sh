@@ -43,7 +43,7 @@ sudo -E bash nodesource_setup.sh
 sudo apt-get install -y nodejs
 
 # Install semantic-release plugins
-sudo npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git @semantic-release/github@10.1.1
+sudo npm install -g semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/github @semantic-release/git
 sudo npm install semantic-release-helm
 
 # Install Terraform
